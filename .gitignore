@@ -1,0 +1,4 @@
+public-dist/
+styles.backup-*.css
+Thumbs.db
+.DS_Store
