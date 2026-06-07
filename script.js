@@ -10,6 +10,7 @@
   const VISIBLE_TAG_COUNT = 3;
   const HIDDEN_TAG_COUNT = 1;
   const OBVIOUS_HEALTHY_RATE = 0.05;
+  const AVATAR_MATCH_RATE = 0.82;
 
   const I18N = {
     zh: {
@@ -730,6 +731,7 @@
       text,
       roleRisk,
       targets: Array.isArray(targets) ? targets : [targets],
+      avatarGroups: inferAvatarGroups(text),
       risk: false,
       color: colorForRoleRisk(roleRisk),
       drawWeight: drawWeightForRoleRisk(roleRisk)
@@ -765,6 +767,18 @@
     if (score >= 36) return 1.2;
     return 1.45;
   }
+
+  const AVATAR_GROUP_RULES = [
+    { group: "medical", keywords: ["护士", "医生", "医学生", "牙医", "心理咨询师", "理疗师", "健康管理师", "体检"] },
+    { group: "sport", keywords: ["健身", "篮球", "体育", "游泳", "拳击", "瑜伽", "舞蹈", "芭蕾", "滑板", "机车", "晨跑", "马拉松", "运动", "徒步"] },
+    { group: "night", keywords: ["酒吧", "夜店", "DJ", "调酒", "驻唱", "乐队", "擦边", "主播", "暧昧", "嘴甜", "撒娇", "过度热情", "社交软件", "24小时在线"] },
+    { group: "art", keywords: ["摄影", "美妆", "剧本杀", "密室", "纹身", "漫画", "Cosplayer", "模特", "服装设计", "美术", "音乐", "文艺", "诗歌", "花店"] },
+    { group: "service", keywords: ["咖啡", "甜品", "宠物", "便利店", "高铁", "空乘", "销售", "保险", "房产", "店员"] },
+    { group: "travel", keywords: ["空乘", "飞行员", "高铁", "旅游", "留学", "海归", "露营", "徒步"] },
+    { group: "business", keywords: ["投行", "金融", "老板", "创业", "小公司", "销售冠军", "保险", "房产", "海归精英", "社畜", "打工人", "精英"] },
+    { group: "tech", keywords: ["程序员", "游戏策划", "电竞", "二次元", "宅"] },
+    { group: "study", keywords: ["考研", "学生", "男大", "女大", "图书馆", "书店", "留学生", "学长", "学姐"] }
+  ];
 
   const DATE_LINES = [
     "“你这么看着我，我会误会的。”",
@@ -1171,11 +1185,32 @@
     healthy("纹身师工作室消毒流程清楚", ["纹身师"])
   ];
 
-  const FEMALE_AVATARS = Array.from(
-    { length: 50 },
-    (_, index) => `assets/avatars/female/female-${String(index + 1).padStart(3, "0")}.webp`
-  );
-  const MALE_AVATARS = Array.from({ length: 10 }, (_, index) => createAnimeAvatar("male", index));
+  const FEMALE_AVATAR_GROUP_INDEXES = {
+    medical: [14, 29, 35, 44],
+    sport: [16, 22, 28, 43, 49],
+    night: [1, 4, 7, 12, 18, 26, 33, 40, 42, 46, 48],
+    art: [8, 9, 13, 20, 25, 26, 27, 30, 32, 50],
+    service: [6, 11, 25, 38, 39, 45, 47],
+    travel: [3, 5, 15, 28, 31, 49],
+    business: [3, 5, 17, 31, 35, 44],
+    tech: [14, 24, 27, 35, 44],
+    study: [2, 6, 8, 13, 21, 27, 35, 41, 44, 47]
+  };
+
+  const MALE_AVATAR_GROUP_INDEXES = {
+    medical: [5, 12, 20, 27, 38, 41, 47],
+    sport: [4, 9, 13, 17, 25, 33, 34, 39, 43, 49],
+    night: [7, 15, 17, 22, 31, 35, 42, 45],
+    art: [3, 7, 8, 16, 23, 24, 26, 29, 35, 38, 45, 48],
+    service: [6, 15, 28, 36, 40, 50],
+    travel: [13, 19, 25, 34, 44],
+    business: [1, 11, 18, 22, 29, 31, 32, 34, 36, 44, 48],
+    tech: [14, 21, 22],
+    study: [2, 10, 18, 26, 30, 46, 48]
+  };
+
+  const FEMALE_AVATARS = createAvatarPool("female", 50, FEMALE_AVATAR_GROUP_INDEXES);
+  const MALE_AVATARS = createAvatarPool("male", 50, MALE_AVATAR_GROUP_INDEXES);
 
   const els = {
     compliance: document.querySelector("#compliance-modal"),
@@ -1245,6 +1280,20 @@
       riskRecords: [],
       actionCounts: { chat: 0, light: 0, steady: 0, shortcut: 0, rush: 0, skip: 0, refuse: 0, test: 0, hospital: 0 }
     };
+  }
+
+  function createAvatarPool(kind, count, groupIndexes) {
+    return Array.from({ length: count }, (_, index) => {
+      const number = index + 1;
+      const groups = ["general"];
+      Object.entries(groupIndexes).forEach(([group, indexes]) => {
+        if (indexes.includes(number)) groups.push(group);
+      });
+      return {
+        src: `assets/avatars/${kind}/${kind}-${String(number).padStart(3, "0")}.webp`,
+        groups
+      };
+    });
   }
 
   function createAnimeAvatar(kind, index) {
@@ -1336,6 +1385,13 @@
     return list.join(language === "zh" ? "、" : ", ");
   }
 
+  function inferAvatarGroups(roleText) {
+    const groups = AVATAR_GROUP_RULES
+      .filter((rule) => rule.keywords.some((keyword) => roleText.includes(keyword)))
+      .map((rule) => rule.group);
+    return groups.length ? groups : ["general"];
+  }
+
   function clamp(value, min, max) {
     return Math.max(min, Math.min(max, value));
   }
@@ -1390,11 +1446,16 @@
     return shuffle(role === "male" ? FEMALE_AVATARS : MALE_AVATARS);
   }
 
-  function drawAvatar() {
+  function drawAvatar(roleTag = null) {
     if (!state.avatarDeck.length) {
       state.avatarDeck = buildAvatarDeck(state.role || "male");
     }
-    return state.avatarDeck.pop();
+    const avatarGroups = roleTag?.avatarGroups?.length ? roleTag.avatarGroups : ["general"];
+    const matchedDeck = state.avatarDeck.filter((avatar) => avatar.groups.some((group) => avatarGroups.includes(group)));
+    const drawPool = matchedDeck.length && chance(AVATAR_MATCH_RATE) ? matchedDeck : state.avatarDeck;
+    const avatar = sample(drawPool, drawPool[0]);
+    state.avatarDeck = state.avatarDeck.filter((item) => item.src !== avatar.src);
+    return avatar.src;
   }
 
   function startGame() {
@@ -1427,7 +1488,7 @@
       const roleTag = createTag(sample(OBVIOUS_HEALTHY_ROLES, OBVIOUS_HEALTHY_ROLES[0]), true);
       const tags = generateObviousHealthyTags(roleTag);
       return {
-        avatar: drawAvatar(),
+        avatar: drawAvatar(roleTag),
         line: sample(DATE_LINES, ""),
         role: roleTag,
         canProbe: false,
@@ -1440,7 +1501,7 @@
     const roleTag = createTag(weightedPick(rolePool, new Set()) || sample(rolePool, null), true);
     const tags = generateTags(roleTag);
     return {
-      avatar: drawAvatar(),
+      avatar: drawAvatar(roleTag),
       line: sample(DATE_LINES, ""),
       role: roleTag,
       canProbe: canProbeThisRound(tags) && chance(PROBE_RANDOM_AVAILABILITY_RATE),
@@ -1546,6 +1607,7 @@
       disease: source.disease || "",
       roleRisk: source.roleRisk || 0,
       targets: source.targets || [],
+      avatarGroups: source.avatarGroups || ["general"],
       normal: Boolean(source.normal),
       scores: source.scores || {},
       score: source.score || 0,
