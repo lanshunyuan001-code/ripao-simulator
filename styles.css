@@ -511,16 +511,16 @@ button {
 
 .avatar-bubble {
   position: relative;
-  width: min(190px, 70vw);
-  height: 132px;
+  width: min(210px, 58vw);
+  aspect-ratio: 4 / 5;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 12px;
   border: 2px solid rgba(70, 82, 102, 0.9);
-  border-radius: 18px;
+  border-radius: 22px;
   background: linear-gradient(135deg, #232b38, #151a23);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 22px 32px -10px rgba(0, 0, 0, 0.45);
   animation: float 6s ease-in-out infinite;
   overflow: hidden;
 }
@@ -530,6 +530,7 @@ button {
   height: 100%;
   display: block;
   object-fit: cover;
+  object-position: center 18%;
 }
 
 .task-status {

@@ -1171,7 +1171,10 @@
     healthy("纹身师工作室消毒流程清楚", ["纹身师"])
   ];
 
-  const FEMALE_AVATARS = Array.from({ length: 10 }, (_, index) => createAnimeAvatar("female", index));
+  const FEMALE_AVATARS = Array.from(
+    { length: 50 },
+    (_, index) => `assets/avatars/female/female-${String(index + 1).padStart(3, "0")}.webp`
+  );
   const MALE_AVATARS = Array.from({ length: 10 }, (_, index) => createAnimeAvatar("male", index));
 
   const els = {
