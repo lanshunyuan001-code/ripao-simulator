@@ -11,6 +11,7 @@
   const HIDDEN_TAG_COUNT = 1;
   const OBVIOUS_HEALTHY_RATE = 0.05;
   const AVATAR_MATCH_RATE = 0.82;
+  const AVATAR_ASSET_VERSION = "20260607-female-halfbody-v2";
 
   const I18N = {
     zh: {
@@ -1290,7 +1291,7 @@
         if (indexes.includes(number)) groups.push(group);
       });
       return {
-        src: `assets/avatars/${kind}/${kind}-${String(number).padStart(3, "0")}.webp`,
+        src: `assets/avatars/${kind}/${kind}-${String(number).padStart(3, "0")}.webp?v=${AVATAR_ASSET_VERSION}`,
         groups
       };
     });
