@@ -14,6 +14,33 @@
   const I18N = {
     zh: {
       appTitle: "日抛模拟器",
+      complianceSubtitle: "进入前合规声明",
+      complianceOfficialTitle: "官方作者 / 举报冒用",
+      complianceContactPrefix: "X：",
+      complianceOfficialText: "发现黄链、招嫖、恶意搬运、虚假广告、下载诱导或冒用本作品名义的页面，请第一时间联系作者。",
+      complianceAgeTitle: "年龄与阅读场景提示",
+      complianceAgeText: "建议 18 岁以上用户阅读；未成年人应在监护人指导下，或在学校、医院、社区等正规健康教育场景下阅读。",
+      complianceImportantTitle: "重要提醒",
+      complianceImportantText1: "本游戏在当前页面即可游玩，不需要填写任何个人信息，不需要手机号、微信/QQ、验证码或支付信息；不需要下载任何 APP、插件或安装包；页面内没有任何用户可点击的外站跳转链接、广告入口或充值入口。",
+      complianceImportantText2: "如果你看到要求下载、填写信息、支付充值、跳转外站、观看黄色广告或进入成人网站的页面，那不是本作品页面，请立即关闭并举报。",
+      compliancePositionTitle: "作品立场",
+      compliancePositionText1: "本作品是虚构的生理健康风险模拟与安全行为教育小游戏，目的在于提示性传播感染风险、就医检测重要性和自我保护意识。游戏目前明确反对以“约炮”为目的的线上邀约和线下见面，不鼓励、不美化、不提供任何约炮方法；游戏中的风险模拟是劝退和教育，不是攻略。",
+      compliancePositionText2: "游戏明确反对卖淫嫖娼、拉客招嫖、色情交易、黄色链接传播、涉黄联系方式导流、偷拍视频/图片传播等任何违法违规行为，也反对把性冲动包装成炫耀、猎奇或消费。",
+      complianceBoundaryTitle: "内容边界",
+      complianceBoundaryText1: "1. 本页面不提供真人匹配、聊天交友、线下撮合、交易支付、广告投放或用户上传入口。",
+      complianceBoundaryText2: "2. 本页面不展示露骨性行为画面，不提供淫秽色情资源，不跳转黄色网站。",
+      complianceBoundaryText3: "3. 本作品无盈利目的，不设置充值、打赏、付费解锁、广告分成、商业导流或成人内容变现。",
+      complianceBoundaryText4: "4. 任何冒用本作品名义传播黄链、招嫖信息、交易信息、下载链接或广告跳转的行为，均与本作品立场相悖，应立即举报。",
+      complianceBasisTitle: "合规依据",
+      complianceBasisText1: "《中华人民共和国刑法》第三百六十三条、第三百六十四条禁止制作、复制、出版、贩卖、传播淫秽物品；第三百六十七条同时明确，人体生理、医学知识的科学著作不属于淫秽物品。本作品按健康教育和风险提示定位制作。",
+      complianceBasisText2: "《中华人民共和国治安管理处罚法》（2025 年修订，2026 年 1 月 1 日起施行）第七十八条、第七十九条、第八十条分别规制卖淫嫖娼、引诱容留介绍卖淫、利用信息网络传播淫秽信息。本作品不提供前述行为的组织、撮合或传播条件。",
+      complianceBasisText3: "《互联网信息服务管理办法》第十五条和《网络信息内容生态治理规定》第六条、第七条、第十条要求不得制作传播淫秽色情信息，并应防范低俗不良信息。本作品以提示风险、反对高危行为为核心。",
+      complianceConsent: "我已阅读并理解：本作品建议 18 岁以上阅读，仅用于非盈利健康教育和风险模拟，明确反对约炮、招嫖、色情交易和黄链传播；本页面不需要填写信息、不需要下载、无外站跳转，我不会借此发布或传播违法违规信息。",
+      complianceContinue: "我已知悉，继续",
+      genderTitle: "选择性别",
+      genderSubtitle: "请选择本局身份。",
+      maleRole: "高富帅",
+      femaleRole: "白富美",
       desireLabel: "🔥 生理欲望",
       loadLabel: "🧠 心理负荷",
       panicWarning: "",
@@ -139,6 +166,33 @@
     },
     en: {
       appTitle: "Daily Date Simulator",
+      complianceSubtitle: "Compliance notice before entering",
+      complianceOfficialTitle: "Official creator / impersonation report",
+      complianceContactPrefix: "X: ",
+      complianceOfficialText: "If you find porn links, solicitation, malicious reposts, fake ads, download traps, or pages using this work's name without permission, please contact the creator immediately.",
+      complianceAgeTitle: "Age and reading context",
+      complianceAgeText: "Recommended for users aged 18 and above. Minors should read only under guardian guidance or in formal health education settings such as schools, hospitals, or communities.",
+      complianceImportantTitle: "Important reminder",
+      complianceImportantText1: "This game can be played directly on this page. It does not require personal information, phone numbers, WeChat/QQ, verification codes, payment details, app downloads, plugins, or installers. The page has no external clickable links, ad entrances, or recharge entrances.",
+      complianceImportantText2: "If you see a page asking you to download, enter information, pay or recharge, jump to another site, watch adult ads, or enter an adult website, that page is not this work. Close it and report it immediately.",
+      compliancePositionTitle: "Position of this work",
+      compliancePositionText1: "This is a fictional sexual-health risk simulation and safety education game. It aims to remind players of sexually transmitted infection risks, the importance of medical testing, and self-protection. The game explicitly opposes online invitations and offline meetups for casual sex, does not encourage or glamorize them, and does not provide any method for arranging them. The risk simulation is educational and discouraging, not a guide.",
+      compliancePositionText2: "The game explicitly opposes prostitution, solicitation, pornographic transactions, adult-link distribution, adult-contact diversion, and non-consensual video or image sharing. It also opposes packaging sexual impulse as boasting, spectacle, or consumption.",
+      complianceBoundaryTitle: "Content boundaries",
+      complianceBoundaryText1: "1. This page does not provide real-person matching, chat dating, offline matchmaking, transaction payment, advertising placement, or user upload entrances.",
+      complianceBoundaryText2: "2. This page does not show explicit sexual acts, provide pornographic resources, or redirect to adult websites.",
+      complianceBoundaryText3: "3. This work is non-profit and has no recharge, tipping, paid unlocks, ad revenue sharing, commercial diversion, or adult-content monetization.",
+      complianceBoundaryText4: "4. Any use of this work's name to spread porn links, solicitation, transaction information, download links, or ad redirects contradicts this work's position and should be reported immediately.",
+      complianceBasisTitle: "Compliance basis",
+      complianceBasisText1: "Articles 363 and 364 of the Criminal Law of the People's Republic of China prohibit producing, copying, publishing, selling, or distributing obscene materials. Article 367 also clarifies that scientific works on human physiology and medical knowledge are not obscene materials. This work is positioned as health education and risk warning.",
+      complianceBasisText2: "The Public Security Administration Punishments Law of the People's Republic of China, revised in 2025 and effective on January 1, 2026, regulates prostitution, organizing or introducing prostitution, and using information networks to spread obscene information. This work does not provide conditions for organizing, matching, or distributing such behavior.",
+      complianceBasisText3: "The Internet Information Service Management Measures and the Provisions on Ecological Governance of Network Information Content require platforms not to produce or spread obscene or pornographic information and to prevent vulgar harmful information. This work centers on risk warning and opposition to high-risk behavior.",
+      complianceConsent: "I have read and understood: this work is recommended for users aged 18 and above and is only for non-profit health education and risk simulation. It clearly opposes casual-sex solicitation, prostitution, pornographic transactions, and adult-link distribution. This page does not require information, downloads, or external redirects, and I will not use it to publish or spread illegal content.",
+      complianceContinue: "I understand, continue",
+      genderTitle: "Choose identity",
+      genderSubtitle: "Choose your role for this run.",
+      maleRole: "High-value man",
+      femaleRole: "High-value woman",
       desireLabel: "🔥 Physical Desire",
       loadLabel: "🧠 Mental Load",
       panicWarning: "",
@@ -1124,6 +1178,7 @@
     compliance: document.querySelector("#compliance-modal"),
     complianceConsent: document.querySelector("#disclaimer-consent"),
     complianceContinue: document.querySelector("#continue-intro-btn"),
+    complianceLanguageToggle: document.querySelector("#compliance-language-toggle"),
     gender: document.querySelector("#gender-modal"),
     genderButtons: [...document.querySelectorAll(".gender-option")],
     game: document.querySelector("#game-container"),
@@ -1309,6 +1364,7 @@
     els.homeButton.setAttribute("aria-label", els.homeButton.title);
     els.languageToggle.textContent = language === "zh" ? "EN" : "中";
     els.introLanguageToggle.textContent = language === "zh" ? "EN" : "中";
+    els.complianceLanguageToggle.textContent = language === "zh" ? "EN" : "中";
     document.querySelectorAll("[data-i18n]").forEach((node) => {
       node.textContent = t(node.dataset.i18n);
     });
@@ -2257,6 +2313,7 @@
     els.helpButton.addEventListener("click", () => els.help.classList.remove("hidden"));
     els.closeHelp.addEventListener("click", () => els.help.classList.add("hidden"));
     els.gotIt.addEventListener("click", () => els.help.classList.add("hidden"));
+    els.complianceLanguageToggle.addEventListener("click", () => setLanguage(language === "zh" ? "en" : "zh"));
     els.languageToggle.addEventListener("click", () => setLanguage(language === "zh" ? "en" : "zh"));
     els.introLanguageToggle.addEventListener("click", () => setLanguage(language === "zh" ? "en" : "zh"));
     els.coffeeCard.addEventListener("click", takeFieldTest);
