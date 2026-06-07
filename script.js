@@ -23,7 +23,7 @@
       restCost: "欲望+20 / 负荷清零",
       taskHeading: "约会对象",
       probeButton: "喝杯酒/套套话",
-      probeMeta: "（欲望+3）",
+      probeMeta: "（欲望+5）",
       oralCondomAction: "戴套口交",
       oralCondomMeta: "负荷+3 | 欲望-4",
       sexCondomAction: "戴套性交",
@@ -60,6 +60,15 @@
       hiddenInfo: "线索未明",
       panicHidden: "",
       probeUnavailable: "现在不适合继续套话",
+      fieldTestUsed: "现场测试已用完",
+      loadAlreadyZero: "当前心理负荷为 0",
+      fieldTestRiskTag: "现场测试：结果可疑",
+      fieldTestSafeTag: "现场测试：暂未异常",
+      fieldTestRiskToast: "现场测试结果可疑，不能替代确诊",
+      fieldTestSafeToast: "现场测试暂未异常，仍建议正规检测",
+      hospitalDiagnosedTag: "医院检查：确诊",
+      hospitalSafeTag: "医院检查：暂未确诊",
+      hospitalToast: "去医院检查：欲望+20，心理负荷清零",
       probeTitle: "又套出一点细节",
       probeMessage: "对方补了一句，看似更清楚，却也更难完全放心。",
       actionFeedbackTitle: "这一轮结束",
@@ -77,12 +86,523 @@
       emptyHistory: "暂无复盘记录",
       recordAction: "选择",
       recordDebt: "风险记录",
+      carriedRisk: "携带风险",
+      noClearRisk: "未形成明确风险",
+      recorded: "已记录",
+      diagnosisLabel: "确诊",
+      routeLabel: "途径",
+      reminderLabel: "提示",
+      noInfectionSettlement: "未触发感染结算",
+      gameSimulationHint: "这只是游戏模拟，现实请以正规检测为准。",
+      routeContact: "接触传播",
+      noneValue: "无",
+      rationalEnjoy: "理智享受",
+      correctLeave: "正确离开",
+      deadEscape: "死里逃生",
+      missedChance: "遗憾错过",
+      infectedCount: "被感染次数",
+      actionStatsTitle: "行为统计（次数）",
+      survivalTurnsLabel: "存活回合",
+      judgmentLabel: "判断反馈",
+      desirePlain: "生理欲望",
+      loadPlain: "心理负荷",
+      infectedOutcome: "被ta感染",
+      collapseInfectedTitle: "CPU 被焦虑烧穿了",
+      collapseInfectedMessage: "心理负荷爆表，游戏结束。复盘显示，你在风险里留下了代价。",
+      desireOverflowTitle: "脑子下线，欲望上线",
+      desireOverflowMessage: "生理欲望达到 100，你已经无法继续冷静判断。游戏被迫结束。",
+      desireOverflowInfectedMessage: "生理欲望涨到顶点，判断被冲动接管。复盘显示，你在风险里留下了代价。",
+      badWinTitle: "糟糕的胜利",
+      badWinExpiredMessage: "你走完了全部约会，但身体风险没有完全躲开。",
+      badWinGoodMessage: "欲望被清空了，可健康并没有完全保住。",
+      diagnosedTitle: "确诊，游戏结束",
+      diagnosedMessage: "医院检查确认了之前留下的风险。下面是本局统计和详细复盘。",
+      hospitalClearTitle: "医院检查完成",
+      hospitalClearMessage: "没有触发感染结算。现实中仍请以正规检测为准。",
+      judgmentGotRisk: "这次不是单纯焦虑，风险已经进入复盘。后续去医院检查会直接触发确诊结算。",
+      judgmentAvoidRisk: "你避开了一次明显风险，这种离开比侥幸更有价值。",
+      judgmentProtectedRisk: "防护帮你压低了风险，但这些线索仍然不值得轻视。",
+      judgmentLucky: "你这次靠运气躲过去了，但无保护选择本身已经很危险。",
+      judgmentCorrectLeave: "线索还没有完全坐实，但谨慎离开让你保留了主动权。",
+      judgmentMissed: "目前线索没有形成明确风险，你可能错过了一个相对正常的人。",
+      judgmentProtectedDoubt: "防护降低了风险，但对象的线索让你很难完全放心。",
+      judgmentProtectedSafe: "这次选择相对克制，风险没有进一步扩大。",
+      judgmentUnprotectedRisk: "冲动让你贴近了高风险线索，侥幸不能当成策略。",
+      judgmentUnprotectedSafe: "这次没有出事，但无保护选择会让后面的容错越来越低。",
+      nextGotRisk: "查看身体反应",
+      nextDeadEscape: "压住心跳继续",
+      nextMissed: "带着遗憾继续",
+      nextUnprotected: "硬着头皮继续",
+      nextDoubt: "带着疑虑继续",
+      nextDate: "继续下一场约会",
       copied: "复盘已复制"
     },
-    en: {}
+    en: {
+      appTitle: "Daily Date Simulator",
+      desireLabel: "🔥 Physical Desire",
+      loadLabel: "🧠 Mental Load",
+      panicWarning: "",
+      coffeeTitle: "On-site test",
+      coffeeUse: "Test current date",
+      restTitle: "Go to clinic",
+      restCost: "Desire +20 / load clears",
+      taskHeading: "Date",
+      probeButton: "Drink / probe",
+      probeMeta: "(Desire +5)",
+      oralCondomAction: "Protected oral",
+      oralCondomMeta: "Load +3 | Desire -4",
+      sexCondomAction: "Protected sex",
+      sexCondomMeta: "Load +8 | Desire -8",
+      oralRawAction: "Unprotected oral",
+      oralRawMeta: "Load +20 | Desire -14",
+      sexRawAction: "Unprotected sex",
+      sexRawMeta: "Load +32 | Desire -24",
+      skipAction: "Out of your league",
+      skipMeta: "Desire +10 / Load +2",
+      refuseAction: "",
+      introTitle: "Daily Date Simulator",
+      introLine1: "",
+      introLine2: "",
+      introLine3: "",
+      startButton: "Start",
+      helpButton: "",
+      helpTitle: "",
+      winTitle: "",
+      winRule1: "",
+      winRule2: "",
+      loseTitle: "",
+      loseRule1: "",
+      loseRule2: "",
+      loseRule3: "",
+      coreTitle: "",
+      coreRule: "",
+      gotIt: "",
+      viewHistory: "View detailed recap",
+      nextButton: "Next round",
+      restartButton: "Restart",
+      historyTitle: "Detailed date log",
+      backSummary: "Back to summary",
+      hiddenInfo: "Unknown clue",
+      panicHidden: "",
+      probeUnavailable: "Not a good moment to probe",
+      fieldTestUsed: "On-site test already used",
+      loadAlreadyZero: "Mental load is already 0",
+      fieldTestRiskTag: "On-site test: suspicious",
+      fieldTestSafeTag: "On-site test: no obvious issue",
+      fieldTestRiskToast: "The on-site test looks suspicious. It cannot replace diagnosis.",
+      fieldTestSafeToast: "No obvious issue on the on-site test. Formal testing still matters.",
+      hospitalDiagnosedTag: "Clinic check: diagnosed",
+      hospitalSafeTag: "Clinic check: not diagnosed",
+      hospitalToast: "Clinic check: desire +20, mental load cleared",
+      probeTitle: "Another detail slipped out",
+      probeMessage: "They added one more detail. It is clearer, but not exactly calming.",
+      actionFeedbackTitle: "Round over",
+      actionFeedbackMessage: "You made a choice. The record has been kept.",
+      leaveGoodTitle: "",
+      leaveGoodMessage: "",
+      collapseTitle: "Anxiety fried the CPU",
+      collapseMessage: "Mental load hit 100. You cannot keep judging calmly tonight.",
+      expiredTitle: "Date ended",
+      expiredMessage: "You survived the full run. Every choice is saved in the recap.",
+      goodWinTitle: "Desire offline, brain rebooted",
+      goodWinMessage: "You cooled down. The run is settled.",
+      statsTitle: "Run results",
+      survivedTurns: "rounds",
+      emptyHistory: "No recap records yet",
+      recordAction: "Choice",
+      recordDebt: "Risk record",
+      carriedRisk: "Carried risk",
+      noClearRisk: "No clear risk formed",
+      recorded: "Recorded",
+      diagnosisLabel: "Diagnosis",
+      routeLabel: "Route",
+      reminderLabel: "Note",
+      noInfectionSettlement: "No infection settlement triggered",
+      gameSimulationHint: "This is only a game simulation. In real life, rely on formal testing.",
+      routeContact: "Contact transmission",
+      noneValue: "None",
+      rationalEnjoy: "Rational enjoy",
+      correctLeave: "Correct leave",
+      deadEscape: "Close call",
+      missedChance: "Missed chance",
+      infectedCount: "Infections",
+      actionStatsTitle: "Action stats (times)",
+      survivalTurnsLabel: "Survived rounds",
+      judgmentLabel: "Judgment",
+      desirePlain: "Physical desire",
+      loadPlain: "Mental load",
+      infectedOutcome: "Infected by them",
+      collapseInfectedTitle: "Anxiety fried the CPU",
+      collapseInfectedMessage: "Mental load exploded. The recap shows you paid a price in risk.",
+      desireOverflowTitle: "Brain offline, desire online",
+      desireOverflowMessage: "Physical desire reached 100. You can no longer judge calmly. The game is forced to end.",
+      desireOverflowInfectedMessage: "Desire hit the ceiling and impulse took over. The recap shows you paid a price in risk.",
+      badWinTitle: "A rotten victory",
+      badWinExpiredMessage: "You finished all dates, but did not fully dodge the health risk.",
+      badWinGoodMessage: "Desire was cleared, but your health was not fully protected.",
+      diagnosedTitle: "Diagnosed, game over",
+      diagnosedMessage: "The clinic confirmed the risk you left behind. Here are the stats and recap.",
+      hospitalClearTitle: "Clinic check complete",
+      hospitalClearMessage: "No infection settlement was triggered. In real life, rely on formal testing.",
+      judgmentGotRisk: "This was not just anxiety. The risk has entered the recap. A later clinic check will trigger diagnosis settlement.",
+      judgmentAvoidRisk: "You avoided an obvious risk. Leaving was worth more than gambling.",
+      judgmentProtectedRisk: "Protection lowered the risk, but those clues still deserve attention.",
+      judgmentLucky: "You got lucky this time, but an unprotected choice was already dangerous.",
+      judgmentCorrectLeave: "The clues were not fully confirmed, but leaving carefully kept you in control.",
+      judgmentMissed: "The clues did not form a clear risk. You may have missed a relatively normal person.",
+      judgmentProtectedDoubt: "Protection reduced the risk, but the clues make it hard to fully relax.",
+      judgmentProtectedSafe: "This choice was relatively restrained, and the risk did not expand further.",
+      judgmentUnprotectedRisk: "Impulse pushed you close to high-risk clues. Luck is not a strategy.",
+      judgmentUnprotectedSafe: "Nothing happened this time, but unprotected choices shrink your margin for error.",
+      nextGotRisk: "Check body reaction",
+      nextDeadEscape: "Keep going with a pounding heart",
+      nextMissed: "Continue with regret",
+      nextUnprotected: "Keep going anyway",
+      nextDoubt: "Continue with doubt",
+      nextDate: "Continue to next date",
+      copied: "Recap copied"
+    }
   };
 
-  I18N.en = { ...I18N.zh };
+  const STATIC_TRANSLATIONS = {
+    en: {
+      "艾滋病": "HIV/AIDS risk",
+      "梅毒": "Syphilis",
+      "淋病": "Gonorrhea",
+      "尖锐湿疣": "Genital warts",
+      "戴套口交": "Protected oral",
+      "戴套性交": "Protected sex",
+      "无套口交": "Unprotected oral",
+      "无套性交": "Unprotected sex",
+      "跳过": "Skip",
+      "拒绝/离开": "Refuse / leave",
+      "套话": "Probe",
+      "现场测试": "On-site test",
+      "医院检查": "Clinic check",
+      "理智享受": "Rational enjoy",
+      "正确离开": "Correct leave",
+      "死里逃生": "Close call",
+      "遗憾错过": "Missed chance",
+      "被ta感染": "Infected by them",
+      "接触传播": "Contact transmission",
+      "无": "None",
+      "未形成明确风险": "No clear risk formed",
+      "已记录": "Recorded",
+      "现场测试：结果可疑": "On-site test: suspicious",
+      "现场测试：暂未异常": "On-site test: no obvious issue",
+      "医院检查：确诊": "Clinic check: diagnosed",
+      "医院检查：暂未确诊": "Clinic check: not diagnosed",
+
+      "“你这么看着我，我会误会的。”": "\"Keep looking at me like that and I might misunderstand.\"",
+      "“靠近一点，我不喜欢隔着这么远说话。”": "\"Come closer. I do not like talking from this far away.\"",
+      "“别一直想风险，先看看我。”": "\"Stop thinking about risk for a second. Look at me first.\"",
+      "“你紧张的时候，反而挺可爱。”": "\"You are kind of cute when you are nervous.\"",
+      "“今晚别太理性，好吗？”": "\"Do not be too rational tonight, okay?\"",
+      "“你要是害怕，我可以慢一点。”": "\"If you are scared, I can slow down.\"",
+      "“别急着判断我，先感受一下。”": "\"Do not judge me too fast. Feel it first.\"",
+      "“你越犹豫，我越想逗你。”": "\"The more you hesitate, the more I want to tease you.\"",
+      "“灯暗一点，你会更放松。”": "\"Dim the lights. You will relax more.\"",
+      "“我猜你不是第一次心动又不敢承认。”": "\"I bet this is not the first time you wanted it but would not admit it.\"",
+      "“别盯着线索，看我。”": "\"Stop staring at the clues. Look at me.\"",
+      "“你问得越认真，我越想让你忘掉问题。”": "\"The more seriously you ask, the more I want you to forget the questions.\"",
+      "“你可以拒绝，但你真的舍得吗？”": "\"You can say no, but do you really want to?\"",
+      "“我喜欢你这种明明想要、还装冷静的人。”": "\"I like people who clearly want it but pretend to be calm.\"",
+      "“今晚只要开心一点，不好吗？”": "\"Can tonight just be a little fun?\"",
+      "“别把气氛弄得像审问。”": "\"Do not turn the mood into an interrogation.\"",
+      "“你靠近一点，我告诉你一个秘密。”": "\"Come closer and I will tell you a secret.\"",
+      "“你越防备，我越想知道你在怕什么。”": "\"The more guarded you are, the more I want to know what scares you.\"",
+      "“别紧张，我又不会吃了你。”": "\"Relax. I am not going to eat you alive.\"",
+      "“你现在走，可能会一直想我。”": "\"If you leave now, you might keep thinking about me.\"",
+      "“我看得出来，你不是完全没兴趣。”": "\"I can tell you are not completely uninterested.\"",
+      "“你眼神已经出卖你了。”": "\"Your eyes already gave you away.\"",
+      "“再喝一点，你会诚实很多。”": "\"Drink a little more and you will be much more honest.\"",
+      "“别把每件事都想成最坏的结果。”": "\"Do not turn everything into the worst-case scenario.\"",
+      "“你要是愿意，我今晚可以只属于你。”": "\"If you want, I can belong only to you tonight.\"",
+      "“你不用马上决定，先别离我太远。”": "\"You do not have to decide now. Just do not move too far away.\"",
+      "“你越装镇定，我越想拆穿你。”": "\"The calmer you pretend to be, the more I want to expose you.\"",
+      "“你明明已经动摇了。”": "\"You are already wavering.\"",
+      "“我喜欢被认真选择的感觉。”": "\"I like the feeling of being chosen seriously.\"",
+      "“你可以慢慢确认，但别让我等太久。”": "\"Take your time checking, but do not make me wait too long.\"",
+      "“你不说话的时候，更像是在邀请我。”": "\"When you stay quiet, it feels more like an invitation.\"",
+      "“我今天只想见你，不想聊那些扫兴的事。”": "\"I came to see you, not to talk about mood-killers.\"",
+      "“你怕的是我，还是你自己？”": "\"Are you afraid of me, or of yourself?\"",
+      "“别总想着后果，偶尔也该想想现在。”": "\"Stop thinking only about consequences. Think about now for once.\"",
+      "“我保证，今晚会让你记很久。”": "\"I promise tonight will stay with you for a long time.\"",
+      "“如果你相信直觉，现在应该留下。”": "\"If you trust your instincts, you should stay.\"",
+      "“你不靠近，我怎么让你放心？”": "\"How can I reassure you if you do not come closer?\"",
+      "“你越谨慎，我越想证明给你看。”": "\"The more careful you are, the more I want to prove it to you.\"",
+      "“别急着逃，故事才刚开始。”": "\"Do not run yet. The story just started.\"",
+      "“你今晚看起来，很适合犯一点错。”": "\"Tonight, you look like someone who could make one little mistake.\"",
+      "“你可以装作不想，但我不一定会信。”": "\"You can pretend you do not want it, but I may not believe you.\"",
+      "“别把我当成题目，我不是让你考试的。”": "\"Do not treat me like a test question.\"",
+      "“你想问什么都可以，只要你别走。”": "\"Ask anything you want, as long as you do not leave.\"",
+      "“如果你还在犹豫，那说明我还有机会。”": "\"If you are still hesitating, it means I still have a chance.\"",
+      "“你现在的表情，比答案有意思多了。”": "\"Your expression is more interesting than the answer.\"",
+
+      "考研压力怪": "Grad-exam stress case",
+      "健身教练": "Fitness coach",
+      "篮球运动员": "Basketball player",
+      "芭蕾舞者": "Ballet dancer",
+      "夜班护士": "Night-shift nurse",
+      "急诊医生": "ER doctor",
+      "实习医生": "Medical intern",
+      "医学生": "Medical student",
+      "牙医": "Dentist",
+      "心理咨询师": "Counselor",
+      "理疗师": "Physical therapist",
+      "瑜伽老师": "Yoga instructor",
+      "舞蹈老师": "Dance teacher",
+      "酒吧驻唱": "Bar singer",
+      "乐队主唱": "Band vocalist",
+      "乐队鼓手": "Band drummer",
+      "独立摄影师": "Freelance photographer",
+      "短视频博主": "Short-video creator",
+      "擦边主播": "Suggestive livestreamer",
+      "美妆博主": "Beauty blogger",
+      "剧本杀主持": "Murder-mystery host",
+      "密室NPC": "Escape-room NPC",
+      "调酒师": "Bartender",
+      "夜店常客": "Club regular",
+      "DJ学徒": "DJ apprentice",
+      "纹身师": "Tattoo artist",
+      "咖啡师": "Barista",
+      "甜品店店员": "Dessert shop clerk",
+      "空乘": "Flight attendant",
+      "飞行员": "Pilot",
+      "高铁乘务员": "Rail attendant",
+      "旅游博主": "Travel blogger",
+      "留学生": "Overseas student",
+      "海归精英": "Returnee professional",
+      "投行新人": "Investment banking newbie",
+      "销售冠军": "Top salesperson",
+      "保险顾问": "Insurance consultant",
+      "房产中介": "Real-estate agent",
+      "创业失败者": "Failed founder",
+      "小公司老板": "Small business owner",
+      "程序员": "Programmer",
+      "游戏策划": "Game designer",
+      "电竞陪练": "Esports sparring partner",
+      "漫画社社长": "Manga club president",
+      "摄影棚模特": "Studio model",
+      "服装设计师": "Fashion designer",
+      "美术生": "Art student",
+      "音乐学院学生": "Music school student",
+      "体育学院学生": "Sports college student",
+      "游泳教练": "Swimming coach",
+      "拳击教练": "Boxing coach",
+      "滑板少年": "Skater boy",
+      "机车玩家": "Motorcycle enthusiast",
+      "露营爱好者": "Camping lover",
+      "徒步领队": "Hiking leader",
+      "宠物店店员": "Pet shop clerk",
+      "花店老板": "Flower shop owner",
+      "书店店员": "Bookstore clerk",
+      "图书馆常客": "Library regular",
+      "文艺青年": "Artsy youth",
+      "诗歌爱好者": "Poetry lover",
+      "失眠打工人": "Insomniac worker",
+      "加班社畜": "Overworked employee",
+      "夜班保安": "Night security guard",
+      "便利店夜班员": "Convenience-store night clerk",
+      "刚分手的人": "Freshly single",
+      "暧昧高手": "Flirting expert",
+      "嘴甜骗子": "Sweet-talking liar",
+      "高冷慢热型": "Cold but slow-burning",
+      "过度热情型": "Overly enthusiastic type",
+      "控制欲很强的人": "Very controlling person",
+      "自称很干净的人": "Claims to be very clean",
+      "拒绝被追问的人": "Refuses follow-up questions",
+      "喜欢转移话题的人": "Keeps changing topics",
+      "边界感模糊的人": "Blurry boundaries",
+      "看起来很乖的人": "Looks well-behaved",
+      "经历很多的人": "Has been through a lot",
+      "社交软件重度用户": "Heavy dating-app user",
+      "24小时在线的人": "Online 24/7",
+      "刚结束上一段关系的人": "Just ended a relationship",
+      "长期单身的人": "Long-term single",
+      "朋友很多的人": "Has many friends",
+      "总说自己忙的人": "Always says they are busy",
+      "寂寞男大": "Lonely college guy",
+      "宅男": "Homebody guy",
+      "金融男": "Finance guy",
+      "体育学院男生": "Sports college guy",
+      "音乐学院男生": "Music school guy",
+      "二次元宅男": "Anime homebody guy",
+      "健身房猛男": "Gym hunk",
+      "社交软件男神": "Dating-app prince",
+      "自称专一的前任哥": "Ex who claims loyalty",
+      "嘴很甜的学长": "Sweet-talking senior guy",
+      "刚失恋的男生": "Heartbroken guy",
+      "总说自己很忙的男人": "Always-busy man",
+      "寂寞女大": "Lonely college girl",
+      "宅女": "Homebody girl",
+      "金融女": "Finance woman",
+      "体育学院女生": "Sports college girl",
+      "音乐学院女生": "Music school girl",
+      "二次元宅女": "Anime homebody girl",
+      "健身房辣妹": "Gym hottie",
+      "社交软件女神": "Dating-app goddess",
+      "自称专一的前任姐": "Ex who claims loyalty",
+      "很会撒娇的学姐": "Flirty senior girl",
+      "刚失恋的女生": "Heartbroken girl",
+      "总说自己很忙的女人": "Always-busy woman",
+      "体检自律派": "Disciplined checkup type",
+      "晨跑队长": "Morning-run captain",
+      "健康管理师": "Health manager",
+      "马拉松爱好者": "Marathon lover",
+      "规律作息模范": "Routine sleep model",
+      "运动打卡达人": "Workout check-in expert",
+      "边界感清晰的人": "Clear-boundary person",
+      "长期稳定关系空窗期": "Between long stable relationships",
+
+      "持续低烧": "Persistent low fever",
+      "身体有皮疹": "Rash on the body",
+      "口腔溃疡": "Mouth ulcer",
+      "口腔出现白色斑块": "White patches in the mouth",
+      "无精打采": "Looks listless",
+      "盗汗": "Night sweats",
+      "颈部淋巴结肿大": "Swollen neck lymph nodes",
+      "腋下淋巴结肿大": "Swollen armpit lymph nodes",
+      "咽喉痛": "Sore throat",
+      "扁桃体肿": "Swollen tonsils",
+      "肌肉或关节酸痛": "Muscle or joint aches",
+      "反复腹泻": "Repeated diarrhea",
+      "近期明显消瘦": "Recently lost visible weight",
+      "持续咳嗽伴盗汗": "Persistent cough with night sweats",
+      "生殖器附近出现无痛硬疮": "Painless hard sore near genitals",
+      "肛周出现圆形溃疡": "Round ulcer around the anus",
+      "口腔出现圆形溃疡": "Round ulcer in the mouth",
+      "腹股沟出现肿块": "Lump in the groin",
+      "手掌出现红疹": "Red rash on palms",
+      "脚底出现红疹": "Red rash on soles",
+      "口腔出现溃疡": "Ulcer in the mouth",
+      "身体出现斑疹": "Spotted rash on the body",
+      "躯干出现不痒红疹": "Non-itchy red rash on torso",
+      "红疹颜色偏红褐色": "Rash looks reddish-brown",
+      "发热伴淋巴结肿大": "Fever with swollen lymph nodes",
+      "喉咙痛伴疲惫": "Sore throat with fatigue",
+      "头发斑片状稀疏": "Patchy hair thinning",
+      "之前有个疮自己好了": "A sore disappeared by itself before",
+      "阴部出现潮湿扁平斑块": "Moist flat patches in genital area",
+      "肛周出现潮湿扁平斑块": "Moist flat patches around anus",
+      "大热天穿高领长袖": "Wears high collar and long sleeves in heat",
+      "内裤出现黄色污渍": "Yellow stains on underwear",
+      "内裤出现黄绿色污渍": "Yellow-green stains on underwear",
+      "厕所门口听到叫声": "You hear a pained sound near the bathroom",
+      "感觉瘙痒难耐": "Looks unbearably itchy",
+      "下腹部隐隐不适": "Dull lower-abdominal discomfort",
+      "下腹或盆腔疼痛": "Lower-abdominal or pelvic pain",
+      "非经期少量出血": "Light bleeding outside period",
+      "亲密接触后疼痛": "Pain after intimate contact",
+      "睾丸或阴囊胀痛": "Testicular or scrotal swelling pain",
+      "肛门瘙痒": "Anal itching",
+      "肛门分泌物": "Anal discharge",
+      "排便疼痛": "Painful bowel movement",
+      "肛周少量出血": "Slight bleeding around anus",
+      "近期嗓子疼但不像普通感冒": "Recent sore throat unlike a cold",
+      "生殖器周围出现小肉粒": "Small bumps around genitals",
+      "肛门周围出现小凸起": "Small bumps around anus",
+      "出现菜花状赘生物": "Cauliflower-like growths",
+      "阴部瘙痒难耐": "Unbearable genital itching",
+      "摩擦时容易出血": "Bleeds easily with friction",
+      "小凸起成簇排列": "Small bumps clustered together",
+      "表面粗糙有颗粒感": "Rough granular surface",
+      "柔软带蒂的小赘生物": "Soft stalk-like growth",
+      "扁平小疣": "Small flat wart",
+      "赘生物最近变多": "Growths recently increased",
+      "坚持不开灯": "Insists on keeping lights off",
+
+      "对方一直把手机扣在桌面上": "Keeps phone face-down on the table",
+      "身上香水味很重": "Strong perfume smell",
+      "聊天节奏忽快忽慢": "Chat rhythm keeps changing",
+      "洗手间去了很久": "Spent a long time in the bathroom",
+      "刚见面就催你别想太多": "Immediately tells you not to overthink",
+      "对健康话题一笑带过": "Laughs off health questions",
+      "主动倒酒转移话题": "Pours drinks to change the subject",
+      "照片和本人状态差很多": "Looks very different from photos",
+      "桌上有几张看不清的检查单": "Unclear test papers on the table",
+      "说上次体检是很久以前": "Says last checkup was long ago",
+      "刚洗完澡但显得慌张": "Just showered but seems flustered",
+      "衣服很整洁但精神紧绷": "Clothes are neat but mood is tense",
+      "说最近应酬很多": "Says there have been many social dinners",
+      "不断确认你会不会后悔": "Keeps asking if you will regret it",
+      "手机里弹出陌生人的暧昧消息": "Flirty message from a stranger pops up",
+      "坚持只开一盏小灯": "Insists on only one dim light",
+      "说自己不喜欢被问太细": "Says they dislike detailed questions",
+      "床头有一盒没拆封的套": "Unopened condoms by the bed",
+      "窗台放着未开封的药盒": "Unopened medicine box on the windowsill",
+      "喝酒后话变得含糊": "Speech gets vague after drinking",
+      "提到最近睡眠很差": "Mentions poor sleep recently",
+      "一直把外套拉得很紧": "Keeps pulling jacket tightly closed",
+      "问到检测记录时换了话题": "Changes topic when asked about test records",
+      "反复强调自己很干净": "Keeps saying they are very clean",
+
+      "本月刚做完正规体检": "Had a formal checkup this month",
+      "检测报告日期很近": "Test report date is recent",
+      "主动展示正规检测记录": "Voluntarily shows formal test record",
+      "健康 App 连续打卡很久": "Long health-app check-in streak",
+      "作息记录非常规律": "Very regular sleep record",
+      "运动记录稳定完整": "Stable complete workout record",
+      "明确拒绝无保护行为": "Clearly refuses unprotected acts",
+      "随身带着未拆封安全套": "Carries unopened condoms",
+      "愿意先确认边界再继续": "Wants to confirm boundaries first",
+      "认真解释检测窗口期": "Explains testing window period seriously",
+      "不劝酒也不催促": "Does not push drinks or rush you",
+      "社交圈长期稳定": "Long-term stable social circle",
+      "近期没有新的亲密对象": "No new intimate partner recently",
+      "卫生用品分开放得很清楚": "Personal hygiene items are clearly separated",
+      "房间整洁且没有可疑药物": "Room is tidy with no suspicious medicine",
+      "愿意把灯打开让你确认": "Willing to turn lights on for you to check",
+      "爱运动": "Loves exercise",
+      "每周固定跑步": "Runs every week",
+      "有长期健身习惯": "Has a long-term fitness habit",
+      "作息很规律": "Very regular routine",
+      "很少熬夜": "Rarely stays up late",
+      "不抽烟": "Does not smoke",
+      "很少喝酒": "Rarely drinks",
+      "饮食清淡": "Eats lightly",
+      "每年体检": "Annual checkups",
+      "最近刚做过体检": "Had a recent checkup",
+      "有规律睡眠记录": "Has regular sleep records",
+      "体脂和心率记录很稳定": "Body-fat and heart-rate records are stable",
+      "健康 App 记录很完整": "Health app records are complete",
+      "房间很干净": "Room is very clean",
+      "衣服干净整洁": "Clothes are clean and neat",
+      "不共用私人用品": "Does not share personal items",
+      "主动说不确定就先不继续": "Says if unsure, do not continue yet",
+      "没有劝酒，也没有催你做决定": "Does not push alcohol or rush your decision",
+      "愿意认真回答健康和检测问题": "Answers health and testing questions seriously",
+      "说最近没有新的亲密对象": "Says there has been no new intimate partner recently",
+      "能说清上次检测的大概时间": "Can clearly state the last testing time",
+      "手机里保存着正规检测机构记录": "Phone has records from a formal testing agency",
+      "边界感很清楚，反复确认你是否愿意": "Clear boundaries and repeatedly confirms consent",
+      "不催促无套": "Does not push unprotected contact",
+      "明确拒绝危险行为": "Clearly refuses risky behavior",
+      "尊重你的犹豫": "Respects your hesitation",
+      "不回避健康问题": "Does not avoid health questions",
+      "主动提出先去做检测再继续": "Suggests testing first before continuing",
+      "社交圈很固定": "Social circle is fixed",
+      "长期单身且没有频繁约会": "Long-term single with few dates",
+      "不常用陌生社交软件": "Rarely uses stranger dating apps",
+      "不喜欢临时约见陌生人": "Dislikes sudden meetups with strangers",
+      "不炫耀情史": "Does not brag about dating history",
+      "不急着推进关系": "Does not rush the relationship",
+      "对边界感很重视": "Takes boundaries seriously",
+      "不劝酒": "Does not push drinks",
+      "能接受被拒绝": "Can accept rejection",
+      "认真听完你的担心": "Listens seriously to your concerns",
+      "没有试图转移健康话题": "Does not try to dodge health topics",
+      "约会节奏很舒适": "Date pace feels comfortable",
+      "愿意把选择权交给你": "Lets you keep the choice",
+      "不急着身体接触": "Does not rush physical contact",
+      "说可以改天再见": "Says another day is fine",
+      "看起来精神状态很好": "Looks mentally and physically well",
+      "手机里有运动打卡": "Phone shows workout check-ins",
+      "桌上放着体检报告袋": "A checkup report folder is on the table",
+      "朋友圈多是运动和工作": "Social feed is mostly exercise and work",
+      "生活看起来很有秩序": "Life looks orderly"
+    }
+  };
 
   const ACTIONS = {
     light: { desire: -4, load: 3, exposure: 0.06, labelKey: "oralCondomAction" },
@@ -741,10 +1261,21 @@
     return I18N[language][key] || I18N.zh[key] || "";
   }
 
+  function translateStatic(value) {
+    const raw = String(value ?? "");
+    if (language === "zh") return raw;
+    return STATIC_TRANSLATIONS[language]?.[raw] || raw;
+  }
+
   function text(value) {
     if (!value) return "";
-    if (typeof value === "string") return value;
+    if (typeof value === "string") return translateStatic(value);
     return value[language] || value.zh || "";
+  }
+
+  function formatList(values) {
+    const list = (values || []).filter(Boolean).map((value) => translateStatic(value));
+    return list.join(language === "zh" ? "、" : ", ");
   }
 
   function clamp(value, min, max) {
@@ -784,6 +1315,7 @@
     updateEmptyContentVisibility();
     renderAll();
     if (lastFeedback && !els.feedback.classList.contains("hidden")) {
+      lastFeedback = lastFeedback.rebuild ? lastFeedback.rebuild() : lastFeedback;
       renderFeedback(lastFeedback);
     }
   }
@@ -1050,9 +1582,9 @@
   function renderToolButtons() {
     const disabled = !state.currentDate || state.ended;
     els.coffeeCard.disabled = disabled || state.fieldTests <= 0;
-    els.coffeeCard.title = state.fieldTests <= 0 ? "现场测试已用完" : "";
+    els.coffeeCard.title = state.fieldTests <= 0 ? t("fieldTestUsed") : "";
     els.restButton.disabled = disabled || (state.load <= 0 && state.riskRecords.length <= 0);
-    els.restButton.title = state.load <= 0 && state.riskRecords.length <= 0 ? "当前心理负荷为 0" : "";
+    els.restButton.title = state.load <= 0 && state.riskRecords.length <= 0 ? t("loadAlreadyZero") : "";
   }
 
   function resetActionButtons() {
@@ -1097,11 +1629,11 @@
     if (hasDiseaseRisk(riskProfile)) {
       addToolResultTag("现场测试：结果可疑", "tag-risk");
       state.load = clamp(state.load + 5, 0, 100);
-      showToast("现场测试结果可疑，不能替代确诊");
+      showToast(t("fieldTestRiskToast"));
     } else {
       addToolResultTag("现场测试：暂未异常", "tag-safe");
       state.load = clamp(state.load - 8, 0, 100);
-      showToast("现场测试暂未异常，仍建议正规检测");
+      showToast(t("fieldTestSafeToast"));
     }
 
     renderAll();
@@ -1122,7 +1654,7 @@
     }
 
     addToolResultTag("医院检查：暂未确诊", "tag-safe");
-    showToast("去医院检查：欲望+20，心理负荷清零");
+    showToast(t("hospitalToast"));
     renderAll();
     checkEndAfterAction();
   }
@@ -1251,7 +1783,7 @@
 
   function cloneTags(tags) {
     return tags.map((tag) => ({
-      text: text(tag.text),
+      text: tag.text,
       revealed: tag.revealed,
       color: tag.color,
       risk: Boolean(tag.risk),
@@ -1365,6 +1897,17 @@
     return "outcome-good";
   }
 
+  function getActionText(actionType, fallback = "") {
+    const action = ACTIONS[actionType];
+    if (action?.labelKey) return t(action.labelKey);
+    if (actionType === "skip") return t("skipAction");
+    if (actionType === "refuse") return t("refuseAction") || translateStatic(fallback);
+    if (actionType === "chat") return t("probeButton");
+    if (actionType === "test") return t("coffeeTitle");
+    if (actionType === "hospital") return t("restTitle");
+    return translateStatic(fallback);
+  }
+
   function escapeHTML(value) {
     return String(value ?? "")
       .replaceAll("&", "&amp;")
@@ -1405,30 +1948,30 @@
     const isUnprotected = actionType === "shortcut" || actionType === "rush";
     const risky = hasDiseaseRisk(riskProfile) || riskProfile.score >= 45;
 
-    if (gotRisk) return "这次不是单纯焦虑，风险已经进入复盘。后续去医院检查会直接触发确诊结算。";
+    if (gotRisk) return t("judgmentGotRisk");
     if (outcome === "死里逃生") {
-      if (actionType === "skip" || actionType === "refuse") return "你避开了一次明显风险，这种离开比侥幸更有价值。";
-      if (isProtected) return "防护帮你压低了风险，但这些线索仍然不值得轻视。";
-      return "你这次靠运气躲过去了，但无保护选择本身已经很危险。";
+      if (actionType === "skip" || actionType === "refuse") return t("judgmentAvoidRisk");
+      if (isProtected) return t("judgmentProtectedRisk");
+      return t("judgmentLucky");
     }
-    if (outcome === "正确离开") return "线索还没有完全坐实，但谨慎离开让你保留了主动权。";
-    if (outcome === "遗憾错过") return "目前线索没有形成明确风险，你可能错过了一个相对正常的人。";
-    if (isProtected && risky) return "防护降低了风险，但对象的线索让你很难完全放心。";
-    if (isProtected) return "这次选择相对克制，风险没有进一步扩大。";
-    if (isUnprotected && risky) return "冲动让你贴近了高风险线索，侥幸不能当成策略。";
-    if (isUnprotected) return "这次没有出事，但无保护选择会让后面的容错越来越低。";
-    return "你做出了选择，记录已经留下。";
+    if (outcome === "正确离开") return t("judgmentCorrectLeave");
+    if (outcome === "遗憾错过") return t("judgmentMissed");
+    if (isProtected && risky) return t("judgmentProtectedDoubt");
+    if (isProtected) return t("judgmentProtectedSafe");
+    if (isUnprotected && risky) return t("judgmentUnprotectedRisk");
+    if (isUnprotected) return t("judgmentUnprotectedSafe");
+    return t("actionFeedbackMessage");
   }
 
   function getNextLabel(actionType, outcome, riskProfile, gotRisk) {
-    if (gotRisk) return "查看身体反应";
-    if (outcome === "死里逃生") return "压住心跳继续";
-    if (outcome === "遗憾错过") return "带着遗憾继续";
-    if (actionType === "shortcut" || actionType === "rush") return "硬着头皮继续";
+    if (gotRisk) return t("nextGotRisk");
+    if (outcome === "死里逃生") return t("nextDeadEscape");
+    if (outcome === "遗憾错过") return t("nextMissed");
+    if (actionType === "shortcut" || actionType === "rush") return t("nextUnprotected");
     if ((actionType === "light" || actionType === "steady") && (hasDiseaseRisk(riskProfile) || riskProfile.score >= 45)) {
-      return "带着疑虑继续";
+      return t("nextDoubt");
     }
-    return "继续下一场约会";
+    return t("nextDate");
   }
 
   function buildRoundFeedback(actionType, outcome, riskProfile, gotRisk, beforeStats, afterStats) {
@@ -1438,14 +1981,15 @@
       icon: "",
       end: false,
       nextLabel: getNextLabel(actionType, outcome, riskProfile, gotRisk),
+      rebuild: () => buildRoundFeedback(actionType, outcome, riskProfile, gotRisk, beforeStats, afterStats),
       message: `
         <div class="round-feedback">
           <div class="feedback-delta-grid">
-            ${renderDeltaCell("生理欲望", beforeStats.desire, afterStats.desire, true)}
-            ${renderDeltaCell("心理负荷", beforeStats.load, afterStats.load, true)}
+            ${renderDeltaCell(t("desirePlain"), beforeStats.desire, afterStats.desire, true)}
+            ${renderDeltaCell(t("loadPlain"), beforeStats.load, afterStats.load, true)}
           </div>
           <div class="judgment-card">
-            <span>判断反馈</span>
+            <span>${escapeHTML(t("judgmentLabel"))}</span>
             <p>${escapeHTML(judgment)}</p>
           </div>
         </div>
@@ -1478,29 +2022,33 @@
     renderAll();
   }
 
+  function buildEndFeedback(type) {
+    const hasInfection = state.riskRecords.length > 0;
+    const endMap = hasInfection
+      ? {
+          collapse: { title: t("collapseInfectedTitle"), message: t("collapseInfectedMessage"), icon: "🥀" },
+          desireOverflow: { title: t("desireOverflowTitle"), message: t("desireOverflowInfectedMessage"), icon: "🥀" },
+          expired: { title: t("badWinTitle"), message: t("badWinExpiredMessage"), icon: "🥀" },
+          goodWin: { title: t("badWinTitle"), message: t("badWinGoodMessage"), icon: "🥀" },
+          diagnosed: { title: t("diagnosedTitle"), message: t("diagnosedMessage"), icon: "🧾" }
+        }
+      : {
+          collapse: { title: t("collapseTitle"), message: t("collapseMessage"), icon: "🧠" },
+          desireOverflow: { title: t("desireOverflowTitle"), message: t("desireOverflowMessage"), icon: "🔥" },
+          expired: { title: t("expiredTitle"), message: t("expiredMessage"), icon: "✅" },
+          goodWin: { title: t("goodWinTitle"), message: t("goodWinMessage"), icon: "✅" },
+          diagnosed: { title: t("hospitalClearTitle"), message: t("hospitalClearMessage"), icon: "✅" }
+        };
+
+    return { ...endMap[type], end: true, type, rebuild: () => buildEndFeedback(type) };
+  }
+
   function endGame(type) {
     if (state.ended) return;
     state.ended = true;
     saveRecord(type);
 
-    const hasInfection = state.riskRecords.length > 0;
-    const endMap = hasInfection
-      ? {
-          collapse: { title: "CPU 被焦虑烧穿了", message: "心理负荷爆表，游戏结束。复盘显示，你在风险里留下了代价。", icon: "🥀" },
-          desireOverflow: { title: "脑子下线，欲望上线", message: "生理欲望涨到顶点，判断被冲动接管。复盘显示，你在风险里留下了代价。", icon: "🥀" },
-          expired: { title: "糟糕的胜利", message: "你走完了全部约会，但身体风险没有完全躲开。", icon: "🥀" },
-          goodWin: { title: "糟糕的胜利", message: "欲望被清空了，可健康并没有完全保住。", icon: "🥀" },
-          diagnosed: { title: "确诊，游戏结束", message: "医院检查确认了之前留下的风险。下面是本局统计和详细复盘。", icon: "🧾" }
-        }
-      : {
-          collapse: { title: t("collapseTitle"), message: t("collapseMessage"), icon: "🧠" },
-          desireOverflow: { title: "脑子下线，欲望上线", message: "生理欲望达到 100，你已经无法继续冷静判断。游戏被迫结束。", icon: "🔥" },
-          expired: { title: t("expiredTitle"), message: t("expiredMessage"), icon: "✅" },
-          goodWin: { title: t("goodWinTitle"), message: t("goodWinMessage"), icon: "✅" },
-          diagnosed: { title: "医院检查完成", message: "没有触发感染结算。现实中仍请以正规检测为准。", icon: "✅" }
-        };
-
-    showFeedback({ ...endMap[type], end: true, type });
+    showFeedback(buildEndFeedback(type));
     renderAll();
   }
 
@@ -1565,14 +2113,14 @@
     const diagnosis = stats.infected
       ? `
         <div class="diagnosis-card">
-          <p><strong>确诊：</strong>${escapeHTML(stats.diagnosis)}</p>
-          <p><strong>途径：</strong>${escapeHTML(stats.route)}</p>
+          <p><strong>${escapeHTML(t("diagnosisLabel"))}:</strong> ${escapeHTML(stats.diagnosis)}</p>
+          <p><strong>${escapeHTML(t("routeLabel"))}:</strong> ${escapeHTML(stats.route)}</p>
         </div>
       `
       : `
         <div class="diagnosis-card diagnosis-safe">
-          <p><strong>确诊：</strong>未触发感染结算</p>
-          <p><strong>提示：</strong>这只是游戏模拟，现实请以正规检测为准。</p>
+          <p><strong>${escapeHTML(t("diagnosisLabel"))}:</strong> ${escapeHTML(t("noInfectionSettlement"))}</p>
+          <p><strong>${escapeHTML(t("reminderLabel"))}:</strong> ${escapeHTML(t("gameSimulationHint"))}</p>
         </div>
       `;
 
@@ -1581,23 +2129,23 @@
       <div class="settlement-panel">
         <h3>${t("statsTitle")}</h3>
         <div class="result-grid">
-          <div class="result-cell"><span>✅ 理智享受</span><strong>${stats.rationalEnjoy}</strong></div>
-          <div class="result-cell"><span>🛡️ 正确离开</span><strong>${stats.correctLeave}</strong></div>
-          <div class="result-cell"><span>😰 死里逃生</span><strong>${stats.deadEscape}</strong></div>
-          <div class="result-cell"><span>👋 遗憾错过</span><strong>${stats.missed}</strong></div>
-          <div class="result-cell result-wide result-danger"><span>☠️ 被感染次数</span><strong>${stats.infected}</strong></div>
+          <div class="result-cell"><span>✅ ${escapeHTML(t("rationalEnjoy"))}</span><strong>${stats.rationalEnjoy}</strong></div>
+          <div class="result-cell"><span>🛡️ ${escapeHTML(t("correctLeave"))}</span><strong>${stats.correctLeave}</strong></div>
+          <div class="result-cell"><span>😰 ${escapeHTML(t("deadEscape"))}</span><strong>${stats.deadEscape}</strong></div>
+          <div class="result-cell"><span>👋 ${escapeHTML(t("missedChance"))}</span><strong>${stats.missed}</strong></div>
+          <div class="result-cell result-wide result-danger"><span>☠️ ${escapeHTML(t("infectedCount"))}</span><strong>${stats.infected}</strong></div>
         </div>
-        <h3>行为统计（次数）</h3>
+        <h3>${escapeHTML(t("actionStatsTitle"))}</h3>
         <div class="action-stat-grid">
-          <div><span>无套性交</span><strong>${stats.actions.rush}</strong></div>
-          <div><span>无套口交</span><strong>${stats.actions.shortcut}</strong></div>
-          <div><span>戴套性交</span><strong>${stats.actions.steady}</strong></div>
-          <div><span>戴套口交</span><strong>${stats.actions.light}</strong></div>
-          <div><span>现场测试</span><strong>${stats.actions.test}</strong></div>
-          <div><span>医院检查</span><strong>${stats.actions.hospital}</strong></div>
-          <div class="action-wide"><span>癞蛤蟆想吃天鹅肉</span><strong>${stats.actions.skip}</strong></div>
+          <div><span>${escapeHTML(t("sexRawAction"))}</span><strong>${stats.actions.rush}</strong></div>
+          <div><span>${escapeHTML(t("oralRawAction"))}</span><strong>${stats.actions.shortcut}</strong></div>
+          <div><span>${escapeHTML(t("sexCondomAction"))}</span><strong>${stats.actions.steady}</strong></div>
+          <div><span>${escapeHTML(t("oralCondomAction"))}</span><strong>${stats.actions.light}</strong></div>
+          <div><span>${escapeHTML(t("coffeeTitle"))}</span><strong>${stats.actions.test}</strong></div>
+          <div><span>${escapeHTML(t("restTitle"))}</span><strong>${stats.actions.hospital}</strong></div>
+          <div class="action-wide"><span>${escapeHTML(t("skipAction"))}</span><strong>${stats.actions.skip}</strong></div>
         </div>
-        <div class="survival-row"><span>⏱️ 存活回合</span><strong>${stats.survivedTurns}</strong></div>
+        <div class="survival-row"><span>⏱️ ${escapeHTML(t("survivalTurnsLabel"))}</span><strong>${stats.survivedTurns}</strong></div>
       </div>
       ${diagnosis}
     `;
@@ -1613,20 +2161,21 @@
     state.history.forEach((item) => {
       const node = document.createElement("div");
       const tags = item.tags.length
-        ? item.tags.map((tag) => `<span>${tag.revealed ? escapeHTML(tag.text) : t("hiddenInfo")}</span>`).join("")
+        ? item.tags.map((tag) => `<span>${tag.revealed ? escapeHTML(text(tag.text)) : t("hiddenInfo")}</span>`).join("")
         : "";
-      const carried = item.riskProfile?.diseases?.length ? item.riskProfile.diseases.join("、") : "未形成明确风险";
+      const carried = item.riskProfile?.diseases?.length ? formatList(item.riskProfile.diseases) : t("noClearRisk");
       const outcome = item.outcome || "已记录";
+      const action = getActionText(item.actionType, item.action);
 
       node.className = "history-item";
       node.innerHTML = `
         <div class="history-avatar">${item.avatar ? `<img src="${item.avatar}" alt="">` : ""}</div>
         <div class="history-main">
           <div class="history-tags">${tags}</div>
-          <div class="history-action">${t("recordAction")}: ${escapeHTML(item.action)}</div>
-          <div class="history-disease">携带风险：${escapeHTML(carried)}</div>
+          <div class="history-action">${t("recordAction")}: ${escapeHTML(action)}</div>
+          <div class="history-disease">${t("carriedRisk")}: ${escapeHTML(carried)}</div>
         </div>
-        <div class="history-outcome ${getOutcomeClass(outcome)}">${escapeHTML(outcome)}</div>
+        <div class="history-outcome ${getOutcomeClass(outcome)}">${escapeHTML(translateStatic(outcome))}</div>
       `;
       els.historyList.append(node);
     });
@@ -1641,8 +2190,8 @@
       deadEscape: countOutcome("死里逃生"),
       missed: countOutcome("遗憾错过"),
       infected: state.riskRecords.length,
-      diagnosis: diseases.length ? diseases.join("、") : "无",
-      route: state.riskRecords.length ? "接触传播" : "无",
+      diagnosis: diseases.length ? formatList(diseases) : t("noneValue"),
+      route: state.riskRecords.length ? t("routeContact") : t("noneValue"),
       survivedTurns: state.history.length,
       actions: {
         light: state.actionCounts.light || 0,
@@ -1685,7 +2234,7 @@
       ""
     ];
     state.history.forEach((item, index) => {
-      lines.push(`${index + 1}. ${item.action}`);
+      lines.push(`${index + 1}. ${getActionText(item.actionType, item.action)} - ${translateStatic(item.outcome || t("recorded"))}`);
     });
     navigator.clipboard?.writeText(lines.join("\n")).then(() => showToast(t("copied")));
   }
