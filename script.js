@@ -87,7 +87,6 @@
       coreRule: "“喝杯酒/套套话”会揭示隐藏线索并增加欲望；现场测试和医院检查能辅助判断。离开不一定是亏，离开高风险对象会获得奖励。",
       gotIt: "知道了",
       viewHistory: "查看详细复盘",
-      copyRecap: "复制复盘",
       nextButton: "下一回合",
       restartButton: "重新开始",
       historyTitle: "详细约会记录",
@@ -180,8 +179,7 @@
       nextMissed: "带着遗憾继续",
       nextUnprotected: "硬着头皮继续",
       nextDoubt: "带着疑虑继续",
-      nextDate: "继续下一场约会",
-      copied: "复盘已复制"
+      nextDate: "继续下一场约会"
     },
     en: {
       appTitle: "Daily Date Simulator",
@@ -252,7 +250,6 @@
       coreRule: "Drink / probe reveals a hidden clue and raises desire. On-site tests and clinic checks help judgment. Leaving is not always a loss: leaving a high-risk date is rewarded.",
       gotIt: "Got it",
       viewHistory: "View detailed recap",
-      copyRecap: "Copy recap",
       nextButton: "Next round",
       restartButton: "Restart",
       historyTitle: "Detailed date log",
@@ -345,8 +342,7 @@
       nextMissed: "Continue with regret",
       nextUnprotected: "Keep going anyway",
       nextDoubt: "Continue with doubt",
-      nextDate: "Continue to next date",
-      copied: "Recap copied"
+      nextDate: "Continue to next date"
     }
   };
 
@@ -1292,7 +1288,6 @@
     summaryView: document.querySelector("#summary-view"),
     historyView: document.querySelector("#history-view"),
     viewHistory: document.querySelector("#view-history-btn"),
-    copyRecap: document.querySelector("#copy-recap-btn"),
     historyList: document.querySelector("#history-list"),
     backSummary: document.querySelector("#back-summary-btn"),
     next: document.querySelector("#next-btn"),
@@ -2365,7 +2360,6 @@
       els.next.classList.add("hidden");
       els.restart.classList.remove("hidden");
       els.viewHistory.classList.remove("hidden");
-      els.copyRecap.classList.remove("hidden");
       renderStatsReport();
       renderHistoryList();
     } else {
@@ -2373,7 +2367,6 @@
       els.next.textContent = feedback.nextLabel || t("nextButton");
       els.restart.classList.add("hidden");
       els.viewHistory.classList.add("hidden");
-      els.copyRecap.classList.add("hidden");
       els.next.onclick = advanceRound;
     }
   }
@@ -2497,19 +2490,6 @@
     toastTimer = window.setTimeout(() => els.toast.classList.remove("visible"), 1700);
   }
 
-  function copyRecap() {
-    const lines = [
-      `${t("appTitle")} - ${lastFeedback ? lastFeedback.title : ""}`,
-      `${t("desireLabel").replace("🔥 ", "")}: ${state.desire}`,
-      `${t("loadLabel").replace("🧠 ", "")}: ${state.load}`,
-      ""
-    ];
-    state.history.forEach((item, index) => {
-      lines.push(`${index + 1}. ${getActionText(item.actionType, item.action)} - ${translateStatic(item.outcome || t("recorded"))}`);
-    });
-    navigator.clipboard?.writeText(lines.join("\n")).then(() => showToast(t("copied")));
-  }
-
   function bindEvents() {
     els.complianceConsent.addEventListener("change", () => {
       els.complianceContinue.disabled = !els.complianceConsent.checked;
@@ -2536,9 +2516,7 @@
     els.restButton.addEventListener("click", takeHospitalCheck);
     els.buttons.forEach((button) => button.addEventListener("click", () => takeAction(button.dataset.action)));
     els.viewHistory.addEventListener("click", showHistory);
-    els.copyRecap.addEventListener("click", copyRecap);
     els.backSummary.addEventListener("click", showSummary);
-    els.feedbackTitle.addEventListener("dblclick", copyRecap);
   }
 
   bindEvents();
