@@ -9,13 +9,27 @@
   const PROBE_RANDOM_AVAILABILITY_RATE = 0.82;
   const VISIBLE_TAG_COUNT = 3;
   const HIDDEN_TAG_COUNT = 1;
-  const OBVIOUS_HEALTHY_RATE = 0.05;
   const AVATAR_MATCH_RATE = 0.82;
   const AVATAR_ASSET_VERSION = "20260607-female-halfbody-v2";
   const PROBE_DESIRE_COST = 4;
   const PROBE_BOOST_DESIRE_COST = 1;
   const HOSPITAL_DESIRE_COST = 15;
   const DESIRE_GUARD_VALUE = 85;
+  const DATE_PROFILE_WEIGHTS = [
+    { type: "obviousHealthy", weight: 8 },
+    { type: "lowRisk", weight: 30 },
+    { type: "ambiguous", weight: 35 },
+    { type: "mediumRisk", weight: 20 },
+    { type: "highRisk", weight: 7 }
+  ];
+  const PROTECTED_DATE_PROFILE_WEIGHTS = [
+    { type: "obviousHealthy", weight: 14 },
+    { type: "lowRisk", weight: 46 },
+    { type: "ambiguous", weight: 30 },
+    { type: "mediumRisk", weight: 8 },
+    { type: "highRisk", weight: 2 }
+  ];
+  const HIGH_RISK_STREAK_LIMIT = 2;
 
   const I18N = {
     zh: {
@@ -72,7 +86,7 @@
       introTitle: "玩法说明",
       introLine1: "目标：在欲望爆表、心理负荷爆表或确诊之前，尽量做出安全选择。",
       introLine2: "生理欲望到 100 会失控失败，到 0 会胜利；心理负荷到 100 会焦虑崩盘。",
-      introLine3: "线索越多越要判断风险；套话、现场测试、医院检查能补信息但有代价。礼貌离开高风险对象是正确选择。",
+      introLine3: "不是每个人都有疾病线索；线索越多越要判断风险。套话、现场测试、医院检查能补信息但有代价。",
       startButton: "开始游戏",
       helpButton: "查看详细规则",
       helpTitle: "玩法说明",
@@ -84,7 +98,7 @@
       loseRule2: "心理负荷到 100 会焦虑崩盘。",
       loseRule3: "医院检查确诊后，本局立刻结束。",
       coreTitle: "操作",
-      coreRule: "“喝杯酒/套套话”会揭示隐藏线索并增加欲望；现场测试和医院检查能辅助判断。离开不一定是亏，离开高风险对象会获得奖励。",
+      coreRule: "对象会有健康、低风险、模糊可疑和高风险几类。“喝杯酒/套套话”会揭示隐藏线索并增加欲望；离开高风险对象会获得奖励，但一直跳过正常人会遗憾错过。",
       gotIt: "知道了",
       viewHistory: "查看详细复盘",
       nextButton: "下一回合",
@@ -235,7 +249,7 @@
       introTitle: "How to play",
       introLine1: "Goal: make safer choices before desire, mental load, or diagnosis ends the run.",
       introLine2: "Desire at 100 means loss of control; desire at 0 wins. Mental load at 100 means anxiety collapse.",
-      introLine3: "More clues mean more risk judgment. Probing, on-site tests, and clinic checks reveal information but have costs. Leaving a high-risk date is a correct choice.",
+      introLine3: "Not every date has disease clues. More clues mean more risk judgment. Probing, tests, and clinic checks reveal information but have costs.",
       startButton: "Start",
       helpButton: "Detailed rules",
       helpTitle: "How to play",
@@ -247,7 +261,7 @@
       loseRule2: "Mental load at 100 causes anxiety collapse.",
       loseRule3: "A confirmed clinic diagnosis ends the run immediately.",
       coreTitle: "Actions",
-      coreRule: "Drink / probe reveals a hidden clue and raises desire. On-site tests and clinic checks help judgment. Leaving is not always a loss: leaving a high-risk date is rewarded.",
+      coreRule: "Dates now range from healthy and low-risk to ambiguous and high-risk. Drink / probe reveals hidden clues and raises desire. Leaving a high-risk date is rewarded, but skipping normal people becomes a missed chance.",
       gotIt: "Got it",
       viewHistory: "View detailed recap",
       nextButton: "Next round",
@@ -1092,6 +1106,39 @@
     neutral("反复强调自己很干净", "tag-warn")
   ];
 
+  const MISLEADING_CLUES = [
+    neutral("最近熬夜，精神不太好"),
+    neutral("健身后肌肉酸痛"),
+    neutral("换季嗓子不舒服"),
+    neutral("吃辣后口腔破了一点"),
+    neutral("工作压力大，看起来很疲惫"),
+    neutral("出差回来作息乱"),
+    neutral("皮肤有点过敏"),
+    neutral("最近减脂，体重下降"),
+    neutral("换了新护肤品，脸颊有点泛红"),
+    neutral("刚运动完，身上还有汗味"),
+    neutral("天气太热，脖子上有汗"),
+    neutral("喝冰饮后嗓子有点哑"),
+    neutral("最近花粉过敏"),
+    neutral("昨晚没睡好，眼神有点空"),
+    neutral("嘴角像是上火破了一点"),
+    neutral("胃口不好，但说最近在控糖"),
+    neutral("咳嗽两声，说是空调吹多了"),
+    neutral("新衣服标签磨得皮肤发红"),
+    neutral("健身拉伤，走路有点别扭"),
+    neutral("喝酒后脸和脖子容易泛红"),
+    neutral("最近加班，黑眼圈很重"),
+    neutral("说自己最近压力大，睡眠浅"),
+    neutral("刚从外地回来，还在倒时差"),
+    neutral("吃海鲜后皮肤有点痒"),
+    neutral("口腔破皮，说是牙套磨的"),
+    neutral("运动后膝盖和肩膀酸"),
+    neutral("感冒刚好，声音还有点鼻音"),
+    neutral("最近晒太阳多，皮肤有点红"),
+    neutral("减脂期吃得少，看起来偏瘦"),
+    neutral("穿得很严实，说是怕冷")
+  ];
+
   const EXCELLENT_NORMAL_CLUES = [
     healthy("爱运动"),
     healthy("每周固定跑步"),
@@ -1310,6 +1357,7 @@
       desireGuardUsed: false,
       correctStreak: 0,
       calmBoost: false,
+      highRiskStreak: 0,
       fieldTests: 1,
       avatarDeck: [],
       currentDate: null,
@@ -1531,29 +1579,60 @@
   }
 
   function generateDate() {
-    if (chance(OBVIOUS_HEALTHY_RATE)) {
+    const profileType = chooseDateProfile();
+
+    if (profileType === "obviousHealthy") {
       const roleTag = createTag(sample(OBVIOUS_HEALTHY_ROLES, OBVIOUS_HEALTHY_ROLES[0]), true);
       const tags = generateObviousHealthyTags(roleTag);
+      updateHighRiskStreak(profileType);
       return {
         avatar: drawAvatar(roleTag),
         line: sample(DATE_LINES, ""),
         role: roleTag,
+        profileType,
         canProbe: false,
         obviousHealthy: true,
         tags
       };
     }
 
-    const rolePool = getRolePoolForDate();
+    const rolePool = getRolePoolForDate(profileType);
     const roleTag = createTag(weightedPick(rolePool, new Set()) || sample(rolePool, null), true);
-    const tags = generateTags(roleTag);
+    const tags = generateTags(roleTag, profileType);
+    updateHighRiskStreak(profileType);
     return {
       avatar: drawAvatar(roleTag),
       line: sample(DATE_LINES, ""),
       role: roleTag,
+      profileType,
       canProbe: canProbeThisRound(tags) && chance(PROBE_RANDOM_AVAILABILITY_RATE),
       tags
     };
+  }
+
+  function chooseDateProfile() {
+    const weights = state.highRiskStreak >= HIGH_RISK_STREAK_LIMIT
+      ? PROTECTED_DATE_PROFILE_WEIGHTS
+      : DATE_PROFILE_WEIGHTS;
+    return weightedPickByWeight(weights)?.type || "ambiguous";
+  }
+
+  function updateHighRiskStreak(profileType) {
+    if (profileType === "mediumRisk" || profileType === "highRisk") {
+      state.highRiskStreak += 1;
+      return;
+    }
+    state.highRiskStreak = 0;
+  }
+
+  function weightedPickByWeight(items) {
+    const total = items.reduce((sum, item) => sum + item.weight, 0);
+    let roll = Math.random() * total;
+    for (const item of items) {
+      roll -= item.weight;
+      if (roll <= 0) return item;
+    }
+    return items[items.length - 1];
   }
 
   function generateObviousHealthyTags(roleTag) {
@@ -1568,9 +1647,17 @@
     return selected;
   }
 
-  function getRolePoolForDate() {
+  function getRolePoolForDate(profileType = "ambiguous") {
     const targetGender = state.role === "male" ? "female" : "male";
-    return ROLE_CLUES.filter((item) => item.targets.includes("both") || item.targets.includes(targetGender));
+    const basePool = ROLE_CLUES.filter((item) => item.targets.includes("both") || item.targets.includes(targetGender));
+    const profilePool = basePool.filter((item) => {
+      if (profileType === "lowRisk") return item.roleRisk <= 34;
+      if (profileType === "ambiguous") return item.roleRisk <= 58;
+      if (profileType === "mediumRisk") return item.roleRisk >= 28;
+      if (profileType === "highRisk") return item.roleRisk >= 52;
+      return true;
+    });
+    return profilePool.length ? profilePool : basePool;
   }
 
   function getFeaturePoolForDate() {
@@ -1578,45 +1665,74 @@
     return FEATURE_CLUES.filter((item) => item.targets.includes("both") || item.targets.includes(targetGender));
   }
 
-  function generateTags(roleTag) {
+  function generateTags(roleTag, profileType = "ambiguous") {
     const selected = roleTag ? [roleTag] : [];
     const used = new Set(selected.map((tag) => tag.text));
-    const roleRisk = roleTag?.roleRisk || 0;
     const featurePool = getFeaturePoolForDate();
-    const visibleFeatureChance = clamp(0.18 + roleRisk / 220, 0.18, 0.58);
-    const hiddenFeatureChance = clamp(0.42 + roleRisk / 210, 0.42, 0.86);
-    const excellentNormalChance = clamp(0.12 - roleRisk / 900, 0.03, 0.12);
-    const hiddenExcellentNormalChance = clamp(excellentNormalChance / 2, 0.015, 0.05);
+    const weakFeaturePool = featurePool.filter((item) => item.score < 35);
+    const mediumFeaturePool = featurePool.filter((item) => item.score >= 35 && item.score < 70);
+    const strongFeaturePool = featurePool.filter((item) => item.score >= 70);
     const excellentNormalPool = getExcellentNormalPool(roleTag);
+    const plainNeutralPool = NEUTRAL_CLUES.filter((item) => item.color !== "tag-warn");
+    const softNormalPool = combinePools(excellentNormalPool, plainNeutralPool, MISLEADING_CLUES);
+    const uncertainPool = combinePools(MISLEADING_CLUES, plainNeutralPool, NEUTRAL_CLUES);
+    const mediumRiskPool = combinePools(mediumFeaturePool, weakFeaturePool);
+    const strongRiskPool = combinePools(strongFeaturePool, mediumFeaturePool);
 
-    addTagFromPool(selected, used, featurePool, true);
-
-    while (selected.filter((tag) => tag.revealed).length < VISIBLE_TAG_COUNT) {
-      const normalCandidate = chance(excellentNormalChance);
-      const normalAdded = normalCandidate && addTagFromPool(selected, used, excellentNormalPool, true);
-      if (normalAdded) continue;
-
-      const featureCandidate = chance(visibleFeatureChance);
-      const added = featureCandidate
-        ? addTagFromPool(selected, used, featurePool, true)
-        : addTagFromPool(selected, used, NEUTRAL_CLUES, true);
-      if (!added && !addTagFromPool(selected, used, NEUTRAL_CLUES, true)) break;
+    if (profileType === "lowRisk") {
+      fillVisibleTags(selected, used, softNormalPool);
+      fillHiddenTags(selected, used, combinePools(softNormalPool, MISLEADING_CLUES));
+      return keepRoleFirst(selected, roleTag);
     }
 
-    while (selected.filter((tag) => !tag.revealed).length < HIDDEN_TAG_COUNT) {
-      const normalCandidate = chance(hiddenExcellentNormalChance);
-      const normalAdded = normalCandidate && addTagFromPool(selected, used, excellentNormalPool, false);
-      if (normalAdded) continue;
-
-      const featureCandidate = chance(hiddenFeatureChance);
-      const added = featureCandidate
-        ? addTagFromPool(selected, used, featurePool, false)
-        : addTagFromPool(selected, used, NEUTRAL_CLUES, false);
-      if (!added && !addTagFromPool(selected, used, featurePool, false)) break;
+    if (profileType === "ambiguous") {
+      addTagFromPool(selected, used, weakFeaturePool, true);
+      fillVisibleTags(selected, used, uncertainPool);
+      fillHiddenTags(selected, used, combinePools(MISLEADING_CLUES, plainNeutralPool));
+      return keepRoleFirst(selected, roleTag);
     }
 
+    if (profileType === "mediumRisk") {
+      addTagFromPool(selected, used, mediumRiskPool, true);
+      fillVisibleTags(selected, used, combinePools(MISLEADING_CLUES, plainNeutralPool, mediumFeaturePool));
+      addTagFromPool(selected, used, mediumRiskPool, false);
+      fillHiddenTags(selected, used, uncertainPool);
+      return keepRoleFirst(selected, roleTag);
+    }
+
+    if (profileType === "highRisk") {
+      addTagFromPool(selected, used, strongRiskPool, true);
+      addTagFromPool(selected, used, strongRiskPool, true);
+      fillVisibleTags(selected, used, combinePools(strongRiskPool, NEUTRAL_CLUES));
+      addTagFromPool(selected, used, strongRiskPool, false);
+      fillHiddenTags(selected, used, combinePools(strongRiskPool, mediumRiskPool));
+      return keepRoleFirst(selected, roleTag);
+    }
+
+    fillVisibleTags(selected, used, uncertainPool);
+    fillHiddenTags(selected, used, uncertainPool);
+    return keepRoleFirst(selected, roleTag);
+  }
+
+  function combinePools(...pools) {
+    return pools.flat().filter(Boolean);
+  }
+
+  function keepRoleFirst(selected, roleTag) {
     if (!roleTag) return shuffle(selected);
     return [roleTag, ...shuffle(selected.filter((tag) => tag !== roleTag))];
+  }
+
+  function fillVisibleTags(selected, used, pool) {
+    while (selected.filter((tag) => tag.revealed).length < VISIBLE_TAG_COUNT) {
+      if (!addTagFromPool(selected, used, pool, true)) break;
+    }
+  }
+
+  function fillHiddenTags(selected, used, pool) {
+    while (selected.filter((tag) => !tag.revealed).length < HIDDEN_TAG_COUNT) {
+      if (!addTagFromPool(selected, used, pool, false)) break;
+    }
   }
 
   function getExcellentNormalPool(roleTag) {
@@ -2127,7 +2243,7 @@
 
   function getAvoidOutcome(riskProfile) {
     if (hasDiseaseRisk(riskProfile)) return "正确离开";
-    if (riskProfile.rawScore >= 25 || riskProfile.score >= 25) return "正确离开";
+    if (riskProfile.score >= 45) return "正确离开";
     return "遗憾错过";
   }
 
